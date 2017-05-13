@@ -6,7 +6,7 @@ da pós-graduação da Engenharia Mecânica da USP São Carlos
 
 Grupo: Caiuã Melo, Rafael Vargas, Vinicius Sciuti
 
-4 repositórios criados inicialmente, segundo discussões:
+4 branches criados inicialmente, segundo discussões:
 
 - Função para criação de imagem 1D: image_1D.py
 

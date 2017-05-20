@@ -19,8 +19,8 @@ def abq2img(imgsignal,abqoutput):
     nodes = abqoutput[:,0]                               # Coordenadas dos nos
     u = abqoutput[:,1]                                   # Deslocamento nos
     pixelsperelem = int(len(imgsignal)/(len(nodes)-1))   # Pixels por elemento do sinal de entrada
-    newsignal = np.zeros(imgsignal.shape)                # Sinal deformado (iniciali.)   
-    positionnew=0                                        # Varialvel de posicao no sinal de saida
+    newsignal = np.zeros(imgsignal.shape)                # Sinal deformado (iniciali.)   inal de saida
+    start=0
     for i in range(0,len(nodes)-1):
         strain = (u[i+1] - u[i])/(nodes[i+1]-nodes[i])
         scalefactor = (1+strain)
@@ -31,8 +31,15 @@ def abq2img(imgsignal,abqoutput):
         y = imgsignal[position:position+pixelsperelem]
         xnew = np.linspace(0,1,newpixelsperelement)
         ynew = np.interp(xnew, x, y)
-        h = len(xnew)
-        newsignal[positionnew:positionnew+newpixelsperelement] =  ynew
-        positionnew +=h
+        dh = newpixelsperelement
+        end = start+dh
+        if len(newsignal[start:]) > newpixelsperelement:
+            end = start+dh
+        else:
+            dh=len(newsignal[start:])
+            end = start+dh
+        newsignal[start:end] =  ynew[:dh]
+        start += dh 
     return newsignal
+
 
